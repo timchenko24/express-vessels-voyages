@@ -1,0 +1,29 @@
+{
+  "name": "express-vessels-voyages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.5.1"
+  },
+  "devDependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.5.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timchenko24/express-vessels-voyages.git"
+  },
+  "keywords": [],
+  "author": "Tim Chenskiy <timadraft@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/timchenko24/express-vessels-voyages/issues"
+  },
+  "homepage": "https://github.com/timchenko24/express-vessels-voyages#readme",
+  "private": true
+}
