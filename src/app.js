@@ -1,14 +1,14 @@
 import express from 'express';
-import indexRouter from "./routes";
+import indexRouter from './routes';
 
-const app = express()
+const app = express();
 
-app.use(express.json())
+app.use(express.json());
 app.use(
-    express.urlencoded({
-        extended: true,
-    })
-)
+  express.urlencoded({
+    extended: true,
+  })
+);
 app.use('/', indexRouter);
 
 export default app;
