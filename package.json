@@ -4,29 +4,39 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "morgan": "^1.10.0",
     "pg": "^8.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/node": "^7.12.6",
     "@babel/preset-env": "^7.12.1",
+    "@babel/register": "^7.12.1",
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "coveralls": "^3.1.0",
     "eslint": "^7.13.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
     "express": "^4.17.1",
+    "mocha": "^8.2.1",
     "nodemon": "^2.0.6",
+    "nyc": "^15.1.0",
     "pg": "^8.5.1",
-    "prettier": "^2.1.2"
+    "prettier": "^2.1.2",
+    "sinon-chai": "^3.5.0",
+    "supertest": "^6.0.1"
   },
   "scripts": {
     "prebuild": "babel ./src --out-dir build",
     "build": "node ./build/bin/www",
     "dev": "nodemon --exec babel-node ./src/bin/www",
     "lint": "./node_modules/.bin/eslint ./src",
-    "pretty": "prettier --write '**/*.{js,json}' '!node_modules/**'"
+    "pretty": "prettier --write '**/*.{js,json}' '!node_modules/**'",
+    "test": "nyc --reporter=html --reporter=text --reporter=lcov mocha -r @babel/register"
   },
   "repository": {
     "type": "git",
