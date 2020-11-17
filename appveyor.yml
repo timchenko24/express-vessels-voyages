@@ -2,7 +2,7 @@ environment:
   matrix:
     - nodejs_version: "12"
 install:
-  - yarn --ignore-engines
+  - npm
 test_script:
-  - yarn test
+  - npm test
 build: off
