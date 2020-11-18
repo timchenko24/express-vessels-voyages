@@ -1,1 +1,2 @@
-export * from './home';
+export { indexPage } from './home';
+export { portsPage } from './ports';

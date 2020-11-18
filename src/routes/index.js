@@ -1,6 +1,5 @@
 import express from 'express';
-import { indexPage } from '../controllers';
-import { portsPage } from '../controllers/ports';
+import { indexPage, portsPage } from '../controllers';
 
 const indexRouter = express.Router();
 
