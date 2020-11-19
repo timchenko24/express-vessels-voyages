@@ -12,3 +12,13 @@ export function generateClauseByParams(req, params) {
 
   return clause;
 }
+
+export function generateClauseById(req, columnId) {
+  let clause = '';
+
+  if (req.params.id) {
+    clause = `where ${columnId} = '${req.params.id}'`;
+  }
+
+  return clause;
+}
