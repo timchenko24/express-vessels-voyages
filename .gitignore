@@ -4,4 +4,3 @@ build
 .env
 .nyc_output
 coverage
-cc-test-reporter
