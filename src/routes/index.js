@@ -1,5 +1,7 @@
 import express from 'express';
-import { indexPage, portsPage, vesselsPage } from '../controllers';
+import {
+  indexPage, portsPage, routesPage, vesselsPage
+} from '../controllers';
 
 const indexRouter = express.Router();
 
@@ -10,5 +12,8 @@ indexRouter.get('/ports/:id', portsPage);
 
 indexRouter.get('/vessels', vesselsPage);
 indexRouter.get('/vessels/:id', vesselsPage);
+
+indexRouter.get('/routes', routesPage);
+indexRouter.get('/routes/:id', routesPage);
 
 export default indexRouter;
