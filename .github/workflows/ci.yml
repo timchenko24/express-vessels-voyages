@@ -20,15 +20,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - uses: borales/actions-yarn@v2.0.0
-      with:
-        cmd: install
-    - uses: borales/actions-yarn@v2.0.0
-      with:
-        cmd: build
-    - uses: borales/actions-yarn@v2.0.0
-      with:
-        cmd: test
+    - run: npm install -g yarn
+    - name: npm install, build, and test
+      run: |
+        yarn
+        yarn build
+        yarn test
       
     - name: Coveralls
       uses: coverallsapp/github-action@master
