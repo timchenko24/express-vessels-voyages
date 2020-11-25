@@ -20,12 +20,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install -g yarn
-    - name: npm install, build, and test
-      run: |
-        yarn
-        yarn build
-        yarn test
+    - run: yarn test
+    - run: yarn coverage
       
     - name: Coveralls
       uses: coverallsapp/github-action@master
