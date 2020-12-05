@@ -1,6 +1,9 @@
 import { expect, server, BASE_URL } from './setup';
 
 describe('Vessels', () => {
+  const fields = [ 'mmsi', 'name', 'year', 'flag', 'type', 'imo', 'call_sign',
+    'length', 'width', 'dwt', 'grt' ];
+
   it('get vessels page', done => {
     server
       .get(`${BASE_URL}vessels`)
@@ -9,17 +12,7 @@ describe('Vessels', () => {
         expect(res.status).to.equal(200);
         expect(res.body.vessels).to.be.instanceOf(Array);
         res.body.vessels.forEach(m => {
-          expect(m).to.have.property('mmsi');
-          expect(m).to.have.property('name');
-          expect(m).to.have.property('year');
-          expect(m).to.have.property('flag');
-          expect(m).to.have.property('type');
-          expect(m).to.have.property('imo');
-          expect(m).to.have.property('call_sign');
-          expect(m).to.have.property('length');
-          expect(m).to.have.property('width');
-          expect(m).to.have.property('dwt');
-          expect(m).to.have.property('grt');
+          expect(m).to.have.all.keys(...fields);
         });
         done();
       });
@@ -33,17 +26,8 @@ describe('Vessels', () => {
         expect(res.status).to.equal(200);
         expect(res.body.vessels).to.be.instanceOf(Array);
         res.body.vessels.forEach(m => {
-          expect(m).to.have.property('mmsi');
-          expect(m).to.have.property('name');
+          expect(m).to.have.all.keys(...fields);
           expect(m.flag.toLowerCase()).to.equal('malta');
-          expect(m).to.have.property('year');
-          expect(m).to.have.property('type');
-          expect(m).to.have.property('imo');
-          expect(m).to.have.property('call_sign');
-          expect(m).to.have.property('length');
-          expect(m).to.have.property('width');
-          expect(m).to.have.property('dwt');
-          expect(m).to.have.property('grt');
         });
         done();
       });
@@ -57,17 +41,39 @@ describe('Vessels', () => {
         expect(res.status).to.equal(200);
         expect(res.body.vessels).to.be.instanceOf(Array);
         res.body.vessels.forEach(m => {
-          expect(m).to.have.property('mmsi');
-          expect(m).to.have.property('name');
+          expect(m).to.have.all.keys(...fields);
           expect(m.flag.toLowerCase()).to.equal('liberia');
-          expect(m).to.have.property('year');
           expect(m.type.toLowerCase()).to.equal('bulk carrier');
-          expect(m).to.have.property('imo');
-          expect(m).to.have.property('call_sign');
           expect(parseInt(m.length, 10)).to.greaterThan(200);
-          expect(m).to.have.property('width');
-          expect(m).to.have.property('dwt');
           expect(parseInt(m.grt, 10)).to.lessThan(60000);
+        });
+        done();
+      });
+  });
+
+  it('get vessels page by several params query', done => {
+    server
+      .get(`${BASE_URL}vessels?imo__gte=9000000&
+        imo__lte=9200000&year__gte=1980&year__lte=2005&
+        length__lte=342&width__gte=20&width__lte=40&grt__gte=20000&
+        dwt__gte=40001&dwt__lte=112312`
+        .replace(/\s/g, ''))
+      .expect(200)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.vessels).to.be.instanceOf(Array);
+        res.body.vessels.forEach(m => {
+          expect(m).to.have.all.keys(...fields);
+          expect(parseInt(m.imo, 10)).to.greaterThan(9000000);
+          expect(parseInt(m.imo, 10)).to.lessThan(9200000);
+          expect(parseInt(m.year, 10)).to.greaterThan(1980);
+          expect(parseInt(m.year, 10)).to.lessThan(2005);
+          expect(parseInt(m.length, 10)).to.lessThan(342);
+          expect(parseInt(m.width, 10)).to.greaterThan(20);
+          expect(parseInt(m.width, 10)).to.lessThan(40);
+          expect(parseInt(m.grt, 10)).to.greaterThan(20000);
+          expect(parseInt(m.dwt, 10)).to.greaterThan(40001);
+          expect(parseInt(m.dwt, 10)).to.lessThan(112312);
         });
         done();
       });
