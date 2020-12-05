@@ -1,6 +1,8 @@
 import { expect, server, BASE_URL } from './setup';
 
 describe('Ports', () => {
+  const fields = [ 'id', 'country', 'name', 'type', 'longitude', 'latitude' ];
+
   it('get ports page', done => {
     server
       .get(`${BASE_URL}ports`)
@@ -9,12 +11,7 @@ describe('Ports', () => {
         expect(res.status).to.equal(200);
         expect(res.body.ports).to.be.instanceOf(Array);
         res.body.ports.forEach(m => {
-          expect(m).to.have.property('id');
-          expect(m).to.have.property('country');
-          expect(m).to.have.property('name');
-          expect(m).to.have.property('type');
-          expect(m).to.have.property('longitude');
-          expect(m).to.have.property('latitude');
+          expect(m).to.have.all.keys(...fields);
         });
         done();
       });
@@ -28,13 +25,8 @@ describe('Ports', () => {
         expect(res.status).to.equal(200);
         expect(res.body.ports).to.be.instanceOf(Array);
         res.body.ports.forEach(m => {
-          expect(m).to.have.property('id');
-          expect(m).to.have.property('country');
+          expect(m).to.have.all.keys(...fields);
           expect(m.country.toLowerCase()).to.equal('usa');
-          expect(m).to.have.property('name');
-          expect(m).to.have.property('type');
-          expect(m).to.have.property('longitude');
-          expect(m).to.have.property('latitude');
         });
         done();
       });
@@ -48,15 +40,10 @@ describe('Ports', () => {
         expect(res.status).to.equal(200);
         expect(res.body.ports).to.be.instanceOf(Array);
         res.body.ports.forEach(m => {
-          expect(m).to.have.property('id');
-          expect(m).to.have.property('country');
+          expect(m).to.have.all.keys(...fields);
           expect(m.country.toLowerCase()).to.equal('usa');
-          expect(m).to.have.property('name');
           expect(m.name.toLowerCase()).to.equal('vancouver');
-          expect(m).to.have.property('type');
-          expect(m).to.have.property('longitude');
           expect(parseFloat(m.longitude)).to.lessThan(-120.0);
-          expect(m).to.have.property('latitude');
           expect(parseFloat(m.latitude)).to.greaterThan(45.6);
         });
         done();
