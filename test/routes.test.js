@@ -1,6 +1,8 @@
 import { expect, server, BASE_URL } from './setup';
 
 describe('Routes', () => {
+  const fiels = [ 'id', 'departure_port', 'destination_port' ];
+
   it('get routes page', done => {
     server
       .get(`${BASE_URL}routes`)
@@ -9,9 +11,7 @@ describe('Routes', () => {
         expect(res.status).to.equal(200);
         expect(res.body.routes).to.be.instanceOf(Array);
         res.body.routes.forEach(m => {
-          expect(m).to.have.property('id');
-          expect(m).to.have.property('departure_port');
-          expect(m).to.have.property('destination_port');
+          expect(m).to.have.all.keys(...fiels);
         });
         done();
       });
@@ -25,10 +25,8 @@ describe('Routes', () => {
         expect(res.status).to.equal(200);
         expect(res.body.routes).to.be.instanceOf(Array);
         res.body.routes.forEach(m => {
-          expect(m).to.have.property('id');
-          expect(m).to.have.property('departure_port');
+          expect(m).to.have.all.keys(...fiels);
           expect(m.departure_port.toLowerCase()).to.equal('primorsk');
-          expect(m).to.have.property('destination_port');
         });
         done();
       });
@@ -42,10 +40,8 @@ describe('Routes', () => {
         expect(res.status).to.equal(200);
         expect(res.body.routes).to.be.instanceOf(Array);
         res.body.routes.forEach(m => {
-          expect(m).to.have.property('id');
-          expect(m).to.have.property('departure_port');
+          expect(m).to.have.all.keys(...fiels);
           expect(m.departure_port.toLowerCase()).to.equal('primorsk');
-          expect(m).to.have.property('destination_port');
           expect(m.destination_port.toLowerCase()).to.equal('amsterdam');
         });
         done();
