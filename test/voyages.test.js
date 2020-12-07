@@ -92,7 +92,7 @@ describe('Voyages', () => {
           route: 'UST-LUGA - BALTIYSK',
           vessel: 'BALTIYSK',
           departure_date: '2020-03-16T08:37:00.000Z',
-          arrival_date: '2020-03-17T00:43:00.000Z',
+          arrival_date: '2020-03-18T00:43:00.000Z',
           time_in_port: 28,
           fuel_costs: 17815,
           crew_costs: 1411,
