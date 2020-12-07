@@ -1,0 +1,45 @@
+version: "3"
+services:
+  web:
+    container_name: vessels-voyages-api
+    env_file: .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: CONNECTION_STRING_LOCAL
+    ports:
+      - "3000:3000"
+  db:
+    container_name: postgres
+    env_file: .env
+    image: postgres:12.2
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+    environment:
+      POSTGRES_USER: PG_USER
+      POSTGRES_PASSWORD: PG_PASSWORD
+      POSTGRES_DB: PG_DB
+    ports:
+      - "5432:5432"
+  pgadmin:
+    container_name: pgadmin
+    env_file: .env
+    image: dpage/pgadmin4:4.18
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: PGADMIN_EMAIL
+      PGADMIN_DEFAULT_PASSWORD: PGADMIN_PASS
+      PGADMIN_LISTEN_PORT: PGADMIN_PORT
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    depends_on:
+      - db
+volumes:
+  pgdata:
+  pgadmin:
